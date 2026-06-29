@@ -63,8 +63,27 @@
   opacity: 0.4;
 }
 
+.closeBtn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
 
-
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
 .content {
   padding: 16px 20px 32px;
 }
@@ -415,6 +434,10 @@
 
   .drawerHeader {
     padding: 16px 28px 10px;
+  }
+
+  .closeBtn {
+    right: 24px;
   }
 
   .content {
