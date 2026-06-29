@@ -5,17 +5,24 @@ import styles from './ExerciseCard.module.css';
 interface ExerciseCardProps {
   exercise: Exercise;
   index: number;
+  isCompleted: boolean;
+  onToggleComplete: (id: number) => void;
   onClick: (exercise: Exercise) => void;
 }
 
-export function ExerciseCard({ exercise, index, onClick }: ExerciseCardProps) {
+export function ExerciseCard({ exercise, index, isCompleted, onToggleComplete, onClick }: ExerciseCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
   const isHero = index === 0;
 
+  const handleCheck = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onToggleComplete(exercise.id);
+  };
+
   return (
     <button
-      className={`${styles.card} ${isHero ? styles.hero : ''}`}
+      className={`${styles.card} ${isHero ? styles.hero : ''} ${isCompleted ? styles.completed : ''}`}
       onClick={() => onClick(exercise)}
       type="button"
     >
@@ -43,6 +50,28 @@ export function ExerciseCard({ exercise, index, onClick }: ExerciseCardProps) {
         />
         <div className={styles.imageOverlay} />
 
+        {/* Check Button */}
+        <button
+          className={`${styles.checkBtn} ${isCompleted ? styles.checkBtnActive : ''}`}
+          onClick={handleCheck}
+          type="button"
+          aria-label={isCompleted ? 'علامت تمام نشده' : 'علامت تمام شده'}
+        >
+          <svg
+            className={`${styles.checkIcon} ${isCompleted ? styles.checkIconVisible : ''}`}
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </button>
+
         <div className={styles.numberBadge}>
           <span className={styles.number}>{String(index + 1).padStart(2, '0')}</span>
         </div>
@@ -51,6 +80,12 @@ export function ExerciseCard({ exercise, index, onClick }: ExerciseCardProps) {
           <span className={styles.difficulty}>{exercise.difficulty_fa}</span>
           <span className={styles.equipment}>{exercise.equipment}</span>
         </div>
+
+        {isCompleted && (
+          <div className={styles.doneOverlay}>
+            <span className={styles.doneLabel}>انجام شد</span>
+          </div>
+        )}
       </div>
 
       <div className={styles.body}>

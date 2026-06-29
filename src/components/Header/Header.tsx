@@ -4,9 +4,13 @@ interface HeaderProps {
   dayTitle: string;
   focus: string;
   coachTip: string;
+  completedCount: number;
+  totalCount: number;
+  progress: number;
+  allDone: boolean;
 }
 
-export function Header({ dayTitle, focus, coachTip }: HeaderProps) {
+export function Header({ dayTitle, focus, coachTip, completedCount, totalCount, progress, allDone }: HeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.bgOrb} />
@@ -24,9 +28,15 @@ export function Header({ dayTitle, focus, coachTip }: HeaderProps) {
             </div>
             <span className={styles.brandName}>Workout</span>
           </div>
-          <div className={styles.dayPill}>
-            <span className={styles.dayDot} />
-            Today
+          <div className={`${styles.dayPill} ${allDone ? styles.dayPillDone : ''}`}>
+            {allDone ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            ) : (
+              <span className={styles.dayDot} />
+            )}
+            {allDone ? 'تمام شد' : 'Today'}
           </div>
         </div>
 
@@ -34,6 +44,24 @@ export function Header({ dayTitle, focus, coachTip }: HeaderProps) {
           <h1 className={styles.title}>{dayTitle}</h1>
           <div className={styles.focusLine}>
             <span className={styles.focusText}>{focus}</span>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className={styles.progressSection}>
+          <div className={styles.progressHeader}>
+            <span className={styles.progressLabel}>پیشرفت تمرین</span>
+            <span className={styles.progressCount}>
+              <span className={styles.progressDone}>{completedCount}</span>
+              <span className={styles.progressSep}>/</span>
+              <span className={styles.progressTotal}>{totalCount}</span>
+            </span>
+          </div>
+          <div className={styles.progressTrack}>
+            <div
+              className={`${styles.progressFill} ${allDone ? styles.progressFillDone : ''}`}
+              style={{ width: `${progress}%` }}
+            />
           </div>
         </div>
 
