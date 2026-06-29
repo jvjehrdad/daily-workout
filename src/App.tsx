@@ -14,7 +14,7 @@ function App() {
   const [showSkeletons, setShowSkeletons] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowSkeletons(false), 800);
+    const timer = setTimeout(() => setShowSkeletons(false), 900);
     return () => clearTimeout(timer);
   }, []);
 
@@ -26,19 +26,23 @@ function App() {
         coachTip={data.coach_tip}
       />
       <main className="container">
-        <div className="exerciseGrid">
-          {showSkeletons
-            ? Array.from({ length: 6 }).map((_, i) => (
-                <SkeletonCard key={i} />
-              ))
-            : data.exercises.map((exercise) => (
-                <ExerciseCard
-                  key={exercise.id}
-                  exercise={exercise}
-                  onClick={setSelectedExercise}
-                />
-              ))}
-        </div>
+        <section className="exerciseSection">
+          <div className="sectionLabel">Exercises</div>
+          <div className="exerciseGrid">
+            {showSkeletons
+              ? Array.from({ length: 6 }).map((_, i) => (
+                  <SkeletonCard key={i} isHero={i === 0} />
+                ))
+              : data.exercises.map((exercise, i) => (
+                  <ExerciseCard
+                    key={exercise.id}
+                    exercise={exercise}
+                    index={i}
+                    onClick={setSelectedExercise}
+                  />
+                ))}
+          </div>
+        </section>
       </main>
 
       {selectedExercise && (

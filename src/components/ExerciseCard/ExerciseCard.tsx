@@ -4,82 +4,96 @@ import styles from './ExerciseCard.module.css';
 
 interface ExerciseCardProps {
   exercise: Exercise;
+  index: number;
   onClick: (exercise: Exercise) => void;
 }
 
-export function ExerciseCard({ exercise, onClick }: ExerciseCardProps) {
+export function ExerciseCard({ exercise, index, onClick }: ExerciseCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const isHero = index === 0;
 
   return (
     <button
-      className={styles.card}
+      className={`${styles.card} ${isHero ? styles.hero : ''}`}
       onClick={() => onClick(exercise)}
       type="button"
     >
-      <div className={styles.imageWrapper}>
+      <div className={`${styles.imageWrap} ${isHero ? styles.heroImage : ''}`}>
         {!imageLoaded && !imageError && (
-          <div className={`${styles.skeletonImage} ${styles.shimmer}`} />
+          <div className={styles.skeleton}>
+            <div className={styles.skeletonPulse} />
+          </div>
         )}
         {imageError && (
           <div className={styles.fallback}>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.3">
               <circle cx="12" cy="5" r="3" />
               <path d="M6.5 8h11l1 4-3 3-3-2-3 2-3-3z" />
-              <path d="M5 19v2h14v-2" />
             </svg>
-            <span>{exercise.name_en}</span>
           </div>
         )}
         <img
           src={exercise.image_url}
           alt={exercise.name_fa}
           loading="lazy"
-          className={`${styles.image} ${imageLoaded ? styles.imageLoaded : ''}`}
+          className={`${styles.image} ${imageLoaded ? styles.loaded : ''}`}
           onLoad={() => setImageLoaded(true)}
           onError={() => setImageError(true)}
         />
-        <div className={styles.difficultyBadge}>
-          {exercise.difficulty_fa}
+        <div className={styles.imageOverlay} />
+
+        <div className={styles.numberBadge}>
+          <span className={styles.number}>{String(index + 1).padStart(2, '0')}</span>
+        </div>
+
+        <div className={styles.topMeta}>
+          <span className={styles.difficulty}>{exercise.difficulty_fa}</span>
+          <span className={styles.equipment}>{exercise.equipment}</span>
         </div>
       </div>
 
       <div className={styles.body}>
-        <h3 className={styles.name}>{exercise.name_fa}</h3>
+        <div className={styles.nameRow}>
+          <h3 className={styles.name}>{exercise.name_fa}</h3>
+          <div className={styles.arrow}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        </div>
 
-        <div className={styles.stats}>
+        <div className={styles.statsRow}>
           <div className={styles.stat}>
-            <span className={styles.statValue}>{exercise.sets} × {exercise.reps}</span>
-            <span className={styles.statLabel}>ست × تکرار</span>
+            <span className={styles.statNum}>{exercise.sets}</span>
+            <span className={styles.statUnit}>ست</span>
           </div>
-          <div className={styles.statDivider} />
+          <span className={styles.statSep}>×</span>
           <div className={styles.stat}>
-            <span className={styles.statValue}>{exercise.rest_sec}s</span>
-            <span className={styles.statLabel}>استراحت</span>
+            <span className={styles.statNum}>{exercise.reps}</span>
+            <span className={styles.statUnit}>تکرار</span>
           </div>
-          <div className={styles.statDivider} />
+          <span className={styles.statDot} />
           <div className={styles.stat}>
-            <span className={styles.statValue}>RPE {exercise.target_rpe}</span>
-            <span className={styles.statLabel}>شدت</span>
+            <span className={styles.statNum}>{exercise.rest_sec}<small>s</small></span>
+            <span className={styles.statUnit}>استراحت</span>
+          </div>
+          <span className={styles.statDot} />
+          <div className={styles.stat}>
+            <span className={styles.statNum}>{exercise.tempo}</span>
+            <span className={styles.statUnit}>تمپو</span>
           </div>
         </div>
 
         <div className={styles.muscles}>
           {exercise.muscles.map((muscle) => (
-            <span key={muscle} className={styles.muscleTag}>
+            <span key={muscle} className={styles.muscle}>
               {muscle}
             </span>
           ))}
         </div>
 
-        <div className={styles.tip}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="16" x2="12" y2="12" />
-            <line x1="12" y1="8" x2="12.01" y2="8" />
-          </svg>
-          <span>{exercise.tip}</span>
-        </div>
+        <p className={styles.tip}>{exercise.tip}</p>
       </div>
     </button>
   );

@@ -1,8 +1,12 @@
 .card {
   background: var(--bg-card);
+  border: 1px solid var(--border-card);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--border-card);
+}
+
+.hero {
+  grid-column: 1 / -1;
 }
 
 .image {
@@ -11,36 +15,45 @@
   background: var(--bg-elevated);
 }
 
+.hero .image {
+  aspect-ratio: 21 / 9;
+}
+
 .body {
-  padding: var(--spacing-md);
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 14px;
 }
 
 .title {
   height: 20px;
-  width: 70%;
-  border-radius: var(--radius-sm);
+  width: 65%;
+  border-radius: var(--radius-xs);
   background: var(--bg-elevated);
 }
 
-.row {
+.stats {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: 12px;
+}
+
+.stat {
+  height: 40px;
+  width: 60px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-elevated);
+}
+
+.tags {
+  display: flex;
+  gap: 6px;
 }
 
 .tag {
-  height: 28px;
-  width: 60px;
-  border-radius: var(--radius-full);
-  background: var(--bg-elevated);
-}
-
-.badge {
-  height: 22px;
-  width: 50px;
-  border-radius: var(--radius-full);
+  height: 24px;
+  width: 56px;
+  border-radius: var(--radius-xs);
   background: var(--bg-elevated);
 }
 
@@ -59,19 +72,15 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.04) 40%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.04) 60%,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.03) 60%,
     transparent 100%
   );
-  animation: shimmer 1.8s ease-in-out infinite;
+  animation: shimmer 2s ease-in-out infinite;
 }
 
 @keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(200%);
-  }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
 }

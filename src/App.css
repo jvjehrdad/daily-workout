@@ -1,60 +1,100 @@
 .app {
   max-width: 100%;
   min-height: 100dvh;
-  padding-bottom: var(--spacing-2xl);
 }
 
 .container {
   width: 100%;
-  max-width: 540px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-md);
+  padding: 0 20px;
+}
+
+/* === Exercise Grid === */
+.exerciseSection {
+  padding: 0 0 80px;
+}
+
+.sectionLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-family: var(--font-mono);
+}
+
+.sectionLabel::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--orange);
 }
 
 .exerciseGrid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  padding-top: var(--spacing-lg);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
 }
 
+/* Staggered entrance */
 .exerciseGrid > * {
-  animation: cardEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: cardReveal 0.6s var(--ease-out-expo) both;
 }
 
 .exerciseGrid > *:nth-child(1) { animation-delay: 0ms; }
-.exerciseGrid > *:nth-child(2) { animation-delay: 60ms; }
-.exerciseGrid > *:nth-child(3) { animation-delay: 120ms; }
-.exerciseGrid > *:nth-child(4) { animation-delay: 180ms; }
-.exerciseGrid > *:nth-child(5) { animation-delay: 240ms; }
-.exerciseGrid > *:nth-child(6) { animation-delay: 300ms; }
+.exerciseGrid > *:nth-child(2) { animation-delay: 50ms; }
+.exerciseGrid > *:nth-child(3) { animation-delay: 100ms; }
+.exerciseGrid > *:nth-child(4) { animation-delay: 150ms; }
+.exerciseGrid > *:nth-child(5) { animation-delay: 200ms; }
+.exerciseGrid > *:nth-child(6) { animation-delay: 250ms; }
 
-@keyframes cardEnter {
+@keyframes cardReveal {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(20px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
+/* Mobile: stack everything */
+/* Tablet: 2 cols */
 @media (min-width: 640px) {
+  .container {
+    padding: 0 32px;
+  }
+
   .exerciseGrid {
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    gap: 16px;
+  }
+
+  /* Make first card span full width as hero */
+  .exerciseGrid > *:first-child {
+    grid-column: 1 / -1;
   }
 }
 
+/* Desktop: 3 cols */
 @media (min-width: 1024px) {
   .container {
-    max-width: 960px;
+    max-width: 1100px;
+    padding: 0 40px;
   }
 
   .exerciseGrid {
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-lg);
+    gap: 18px;
+  }
+
+  .exerciseGrid > *:first-child {
+    grid-column: 1 / -1;
   }
 }

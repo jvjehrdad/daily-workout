@@ -1,69 +1,83 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 100;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  animation: fadeIn 0.2s ease;
-  padding: var(--spacing-md);
+  animation: fadeIn 0.25s ease;
+  padding: 12px;
 }
 
 .sheet {
   position: relative;
   width: 100%;
   max-width: 540px;
-  max-height: 90dvh;
-  background: var(--bg-card);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  max-height: 92dvh;
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl) var(--radius-xl) var(--radius-lg) var(--radius-lg);
   overflow-y: auto;
-  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideUp 0.4s var(--ease-out-expo);
   overscroll-behavior: contain;
 }
 
+.handleRow {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 4px;
+  position: sticky;
+  top: 0;
+  background: var(--bg-card-solid);
+  z-index: 10;
+}
+
 .handle {
-  width: 36px;
+  width: 32px;
   height: 4px;
   background: var(--text-muted);
   border-radius: var(--radius-full);
-  margin: var(--spacing-sm) auto;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .closeBtn {
   position: absolute;
-  top: var(--spacing-md);
-  left: var(--spacing-md);
-  width: 36px;
-  height: 36px;
+  top: 14px;
+  left: 14px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-elevated);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 50%;
   color: var(--text-secondary);
-  transition: all var(--transition-fast);
-  z-index: 10;
+  transition: all 0.2s ease;
+  z-index: 11;
 }
 
 .closeBtn:hover {
-  background: var(--bg-card-hover);
+  background: rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
 }
 
 .content {
-  padding: 0 var(--spacing-md) var(--spacing-xl);
+  padding: 0 20px 32px;
 }
 
-.videoWrapper {
+/* === Video === */
+.videoWrap {
   width: 100%;
   aspect-ratio: 16 / 9;
   background: #000;
   border-radius: var(--radius-md);
   overflow: hidden;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 24px;
+  border: 1px solid var(--border-subtle);
 }
 
 .video {
@@ -72,125 +86,196 @@
   object-fit: contain;
 }
 
-.header {
-  margin-bottom: var(--spacing-md);
+/* === Title === */
+.titleBlock {
+  margin-bottom: 24px;
 }
 
 .name {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--text-primary);
-  line-height: 1.4;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 .nameEn {
+  display: block;
   font-size: 0.8125rem;
   color: var(--text-muted);
   text-transform: capitalize;
-  display: block;
   margin-top: 4px;
 }
 
-.statsRow {
-  display: flex;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-lg);
-  padding: var(--spacing-md);
-  background: var(--bg-elevated);
-  border-radius: var(--radius-md);
+/* === Stats Grid === */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 28px;
 }
 
-.statItem {
-  flex: 1;
+.statCard {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 6px;
+  padding: 16px 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  border-color: var(--border-glow);
+  background: rgba(255, 107, 43, 0.04);
 }
 
 .statIcon {
-  font-size: 1.25rem;
+  color: var(--orange);
+  opacity: 0.8;
 }
 
-.statItem > div {
+.statValue {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.statLabel {
+  font-size: 0.625rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* === Sections === */
+.section {
+  margin-bottom: 28px;
+}
+
+.sectionHead {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
-.statVal {
-  font-size: 0.875rem;
+.sectionTitle {
+  font-size: 0.9375rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.statDesc {
-  font-size: 0.6875rem;
-  color: var(--text-muted);
-}
-
-.section {
-  margin-bottom: var(--spacing-lg);
-}
-
-.sectionTitle {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--orange);
+.sectionBadge {
+  min-width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-sm);
+  justify-content: center;
+  padding: 0 6px;
+  background: var(--orange-glass);
+  color: var(--orange);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
 }
 
-.sectionTitle svg {
-  flex-shrink: 0;
-}
-
-.muscleList {
+/* === Muscle Grid === */
+.muscleGrid {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
 }
 
 .muscleItem {
-  padding: 6px 14px;
-  background: rgba(255, 107, 43, 0.1);
-  color: var(--orange-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
   font-size: 0.8125rem;
   font-weight: 500;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 107, 43, 0.15);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
 }
 
-.metaRow {
-  display: flex;
-  flex-wrap: wrap;
+.muscleItem:hover {
+  border-color: var(--border-glow);
+  color: var(--text-primary);
+}
+
+.muscleDot {
+  width: 6px;
+  height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* === Meta Grid === */
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 
-.metaTag {
-  padding: 4px 12px;
-  background: var(--bg-elevated);
-  color: var(--text-secondary);
-  font-size: 0.75rem;
-  font-weight: 500;
-  border-radius: var(--radius-full);
-}
-
-.instructions {
-  list-style: none;
+.metaItem {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: 4px;
+  padding: 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.metaLabel {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.metaValue {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* === Steps === */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .step {
   display: flex;
-  gap: var(--spacing-sm);
-  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.stepNumber {
+.step:last-child {
+  border-bottom: none;
+}
+
+.stepMarker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   flex-shrink: 0;
+  position: relative;
+}
+
+.stepNum {
   width: 28px;
   height: 28px;
   display: flex;
@@ -201,31 +286,48 @@
   font-size: 0.75rem;
   font-weight: 700;
   border-radius: 50%;
+  font-family: var(--font-mono);
+  z-index: 1;
+}
+
+.stepLine {
+  width: 1px;
+  flex: 1;
+  background: var(--border-subtle);
+  margin-top: 6px;
 }
 
 .stepText {
   font-size: 0.8125rem;
   color: var(--text-secondary);
   line-height: 1.8;
+  padding-top: 3px;
 }
 
-.tipCard {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md);
-  background: var(--orange-glow);
+/* === Tip Box === */
+.tipBox {
+  padding: 18px;
+  background: var(--orange-glass);
+  border: 1px solid rgba(255, 107, 43, 0.1);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 107, 43, 0.12);
-  color: var(--text-secondary);
-  font-size: 0.8125rem;
-  line-height: 1.7;
 }
 
-.tipCard svg {
-  flex-shrink: 0;
+.tipHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: var(--orange);
-  margin-top: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.tipText {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
 }
 
 @keyframes fadeIn {
@@ -247,15 +349,19 @@
 @media (min-width: 640px) {
   .overlay {
     align-items: center;
-    padding: var(--spacing-lg);
+    padding: 24px;
   }
 
   .sheet {
     border-radius: var(--radius-xl);
-    max-height: 85dvh;
+    max-height: 88dvh;
   }
 
   .content {
-    padding: 0 var(--spacing-lg) var(--spacing-xl);
+    padding: 0 28px 36px;
+  }
+
+  .name {
+    font-size: 1.75rem;
   }
 }
