@@ -56,15 +56,17 @@ export function Header({ dayTitle, focus, coachTip, completedCount, totalCount, 
         </div>
 
         <div className={styles.coachNote}>
-          <div className={styles.coachAvatar}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-          </div>
-          <div className={styles.coachContent}>
-            <span className={styles.coachLabel}>Coach tip</span>
-            <p className={styles.coachText}>{coachTip}</p>
+          <div className={styles.coachAccent} />
+          <div className={styles.coachInner}>
+            <div className={styles.coachIcon}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <div className={styles.coachContent}>
+              <span className={styles.coachLabel}>Coach Tip</span>
+              <p className={styles.coachText}>{coachTip}</p>
+            </div>
           </div>
         </div>
       </div>
