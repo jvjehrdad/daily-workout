@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import type { Exercise } from '../../types/workout';
 import styles from './ExerciseDetail.module.css';
 
@@ -9,10 +9,21 @@ interface ExerciseDetailProps {
 
 export function ExerciseDetail({ exercise, onClose }: ExerciseDetailProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
+  const [closing, setClosing] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setClosing(true);
+  }, []);
+
+  useEffect(() => {
+    if (!closing) return;
+    const timer = setTimeout(onClose, 300);
+    return () => clearTimeout(timer);
+  }, [closing, onClose]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
     document.addEventListener('keydown', handleEscape);
     document.body.style.overflow = 'hidden';
@@ -20,15 +31,15 @@ export function ExerciseDetail({ exercise, onClose }: ExerciseDetailProps) {
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = '';
     };
-  }, [onClose]);
+  }, [handleClose]);
 
   const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) onClose();
+    if (e.target === e.currentTarget) handleClose();
   };
 
   return (
-    <div className={styles.overlay} onClick={handleBackdropClick}>
-      <div className={styles.sheet} ref={sheetRef}>
+    <div className={`${styles.overlay} ${closing ? styles.overlayClosing : ''}`} onClick={handleBackdropClick}>
+      <div className={`${styles.sheet} ${closing ? styles.sheetClosing : ''}`} ref={sheetRef}>
         <div className={styles.drawerHeader}>
           <div className={styles.handle} />
         </div>
