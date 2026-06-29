@@ -66,8 +66,7 @@
 .closeBtn {
   position: absolute;
   right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 28px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -438,6 +437,7 @@
 
   .closeBtn {
     right: 24px;
+    top: 32px;
   }
 
   .content {
