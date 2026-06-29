@@ -57,7 +57,7 @@ function App() {
       />
       <main className="container">
         <section className="exerciseSection">
-          <div className="sectionLabel">Exercises</div>
+          <div className="sectionLabel">تمرین‌ها</div>
           <div className="exerciseGrid">
             {showSkeletons
               ? Array.from({ length: 6 }).map((_, i) => (

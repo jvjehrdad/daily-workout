@@ -9,7 +9,20 @@
   align-items: flex-end;
   justify-content: center;
   animation: fadeIn 0.25s ease;
-  padding: 12px;
+}
+
+@media (max-width: 639px) {
+  .overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+}
+
+@media (min-width: 640px) {
+  .overlay {
+    padding: 24px;
+    align-items: center;
+  }
 }
 
 .sheet {
@@ -19,16 +32,23 @@
   max-height: 92dvh;
   background: var(--bg-card-solid);
   border: 1px solid var(--border-card);
-  border-radius: var(--radius-xl) var(--radius-xl) var(--radius-lg) var(--radius-lg);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   overflow-y: auto;
   animation: slideUp 0.4s var(--ease-out-expo);
   overscroll-behavior: contain;
 }
 
-.handleRow {
+@media (min-width: 640px) {
+  .sheet {
+    border-radius: var(--radius-xl);
+  }
+}
+
+.drawerHeader {
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 12px 0 4px;
+  padding: 14px 20px 8px;
   position: sticky;
   top: 0;
   background: var(--bg-card-solid);
@@ -43,30 +63,10 @@
   opacity: 0.4;
 }
 
-.closeBtn {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 50%;
-  color: var(--text-secondary);
-  transition: all 0.2s ease;
-  z-index: 11;
-}
 
-.closeBtn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary);
-}
 
 .content {
-  padding: 0 20px 32px;
+  padding: 16px 20px 32px;
 }
 
 /* === Video === */
@@ -347,18 +347,16 @@
 }
 
 @media (min-width: 640px) {
-  .overlay {
-    align-items: center;
-    padding: 24px;
-  }
-
   .sheet {
-    border-radius: var(--radius-xl);
     max-height: 88dvh;
   }
 
+  .drawerHeader {
+    padding: 16px 28px 10px;
+  }
+
   .content {
-    padding: 0 28px 36px;
+    padding: 20px 28px 36px;
   }
 
   .name {
